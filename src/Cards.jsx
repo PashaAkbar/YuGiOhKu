@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
+// import { useState } from "react";
 
 function Cards(cards) {
+
     return (
         <nav className="w-1/3 h-screen overflow-y-auto mx-2 mt-3 text-left shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 rounded-md">
             
-          {cards.cards.map((res) => (
+          {cards.cards.slice(0, 30).map((res) => (
             <Link to={`/details/${res.id}`} key={res.id}>
             <div key={res.id} className="relative cursor-pointer">
               <ul role="list" className="divide-y divide-gray-100">

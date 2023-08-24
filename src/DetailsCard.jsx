@@ -1,8 +1,9 @@
-import { useState } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { StarIcon } from '@heroicons/react/20/solid'
 import fetchCard from './fetchCards';
+import { useContext, useState } from "react";
+import MyCardContext from "./MyCardContext";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -10,7 +11,8 @@ function classNames(...classes) {
 function DetailsCard() {
     const {id} = useParams()
     const results = useQuery(['details',id], fetchCard)
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
+    const [_,setMyCard] = useContext(MyCardContext)
 
     if (results.isLoading) {
         return (
@@ -92,7 +94,10 @@ function DetailsCard() {
 
             <div className="mt-8 lg:col-span-5">
               <form>
-                <button
+                <button onClick={()=>{
+                  setMyCard(card)
+                  navigate("/");
+                }}
                   type="submit"
                   className="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >Tambahkan

@@ -46,6 +46,7 @@ function Homepage() {
     
     useEffect(()=>{
         reqCards()
+        console.log(myCard)
     })
 
     async function reqCards() {
@@ -55,6 +56,8 @@ function Homepage() {
         const json = await res.json();
     
         setCards(json['data']);
+        
+        console.log(myCard)
         // console.log()
       }
 
@@ -68,6 +71,9 @@ function Homepage() {
           }
           else if(selectType!=''){
             return matchSearchTerm && matchType
+          }
+          else{
+            return cards
           }
         }
           
@@ -119,15 +125,15 @@ function Homepage() {
                 </div> */}
                 
             </div>
-          {myCard ? (
+          {myCard[0] ? (
           <div className='w-1/3 mt-3 rounded-md px-4 py-3 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 text-left h-max mx-2'>
-            <h1 className="text-md mb-2 text-center">My Card</h1>
-            <img src={myCard[0].card_images[0].image_url} alt={myCard[0].name} />
+            <div className="text-md mb-2 text-center">My Card</div>
+            <img src={myCard[0].card.card_images[0].image_url} alt={myCard[0].name} /> 
+
           </div>
         ) : null}
         </div>
-           
-        {!cards.length  ? (<h1>Cards not found</h1>) : (!filteredData.length ? (<Cards cards={cards}/>) : (<Cards cards={filteredData}/>))
+        {!filteredData.length  ? (<h1>Cards not found</h1>) : <Cards cards={filteredData}/>
         }
         
     </div>
